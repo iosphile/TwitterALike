@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import TwitterKit
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +19,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        Twitter.sharedInstance().start(withConsumerKey:"CONSUMERKEY", consumerSecret:"CONSUMERSECRET")
+        
         return true
+    }
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
+        
+       // Twitter.sharedInstance().application( application,open: url,sourceApplication: sourceApplication,annotation: annotation)
+       
+        return true
+    }
+    
+    // This is workign for twitter
+  func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+      //Twitter.sharedInstance().start(withConsumerKey:"2SPNKYgco96IW2KHAftDfkg6S", consumerSecret:"a7H58aF0hNKEpfwcRrr4uIOQCzgGBdlMkq15TJEEdvm5npNrtD")
+    if Twitter.sharedInstance().application(app, open: url, options: options) {
+        return true
+        
+    }
+        
+       
+        return false
+        
+    }
+    
+    override init() {
+        super.init()
+        FirebaseApp.configure()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
